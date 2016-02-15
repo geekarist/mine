@@ -11,6 +11,6 @@ public class ListStuffActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        LayoutInflater.from(this).inflate(R.layout.layout_activity_list_stuff, null);
+        setContentView(R.layout.layout_activity_list_stuff);
     }
 }
