@@ -18,7 +18,7 @@ class StuffAdapter extends RecyclerView.Adapter<StuffViewHolder> {
 
     @Override
     public StuffViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_view_stuff_item, parent);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_view_stuff_item, parent, false);
         return new StuffViewHolder(view);
     }
 
