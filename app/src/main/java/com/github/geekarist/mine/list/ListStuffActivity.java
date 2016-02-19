@@ -27,12 +27,7 @@ public class ListStuffActivity extends Activity {
                 new Stuff("Apple iPad Air - 16 Go - Gris Sidéral"))));
 
         mAddButton = findViewById(R.id.list_stuff_button_add);
-        mAddButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ListStuffActivity.this.startActivity(new Intent(ListStuffActivity.this, AddStuffActivity.class));
-            }
-        });
+        mAddButton.setOnClickListener(v -> ListStuffActivity.this.startActivity(new Intent(ListStuffActivity.this, AddStuffActivity.class)));
     }
 
 }
