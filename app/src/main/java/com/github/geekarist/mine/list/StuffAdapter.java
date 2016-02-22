@@ -10,10 +10,10 @@ import com.github.geekarist.mine.R;
 import java.util.List;
 
 class StuffAdapter extends RecyclerView.Adapter<StuffViewHolder> {
-    private final List<Stuff> mStuff;
+    private final List<Thing> mThings;
 
-    public StuffAdapter(List<Stuff> stuff) {
-        mStuff = stuff;
+    public StuffAdapter(List<Thing> things) {
+        mThings = things;
     }
 
     @Override
@@ -24,11 +24,11 @@ class StuffAdapter extends RecyclerView.Adapter<StuffViewHolder> {
 
     @Override
     public void onBindViewHolder(StuffViewHolder holder, int position) {
-        holder.setDescription(mStuff.get(position).getDescription());
+        holder.setDescription(mThings.get(position).getDescription());
     }
 
     @Override
     public int getItemCount() {
-        return mStuff.size();
+        return mThings.size();
     }
 }

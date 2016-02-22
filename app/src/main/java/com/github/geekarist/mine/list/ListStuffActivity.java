@@ -23,8 +23,8 @@ public class ListStuffActivity extends Activity {
         RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.list_stuff_recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(new StuffAdapter(Arrays.asList(
-                new Stuff("Kindle, écran tactile 6 (15,2 cm) antireflet, Wi-Fi (Noir)"),
-                new Stuff("Apple iPad Air - 16 Go - Gris Sidéral"))));
+                new Thing("Kindle, écran tactile 6 (15,2 cm) antireflet, Wi-Fi (Noir)"),
+                new Thing("Apple iPad Air - 16 Go - Gris Sidéral"))));
 
         mAddButton = findViewById(R.id.list_stuff_button_add);
         mAddButton.setOnClickListener(v -> ListStuffActivity.this.startActivity(new Intent(ListStuffActivity.this, AddStuffActivity.class)));

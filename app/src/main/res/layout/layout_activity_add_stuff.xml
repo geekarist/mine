@@ -10,6 +10,7 @@
         android:inputType="textMultiLine"/>
 
     <Button
+        android:id="@+id/add_stuff_button_save"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/add_stuff_save_description"/>
