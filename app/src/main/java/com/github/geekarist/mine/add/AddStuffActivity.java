@@ -15,12 +15,13 @@ import java.lang.reflect.Type;
 import java.util.List;
 
 import butterknife.Bind;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class AddStuffActivity extends Activity {
 
-    @Bind(R.id.stuff_item_description)
-    EditText itemDescriptionEdit;
+    @Bind(R.id.add_stuff_item_description)
+    EditText mItemDescriptionEdit;
 
     private Gson mGson;
 
@@ -29,6 +30,7 @@ public class AddStuffActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_activity_add_stuff);
         mGson = new Gson();
+        ButterKnife.bind(this);
     }
 
     @OnClick(R.id.add_stuff_button_save)
@@ -38,7 +40,7 @@ public class AddStuffActivity extends Activity {
         Type typeOfThingList = new TypeToken<List<Thing>>() {
         }.getType();
         List<Thing> things = mGson.fromJson(thingsJson, typeOfThingList);
-        String description = String.valueOf(itemDescriptionEdit.getText());
+        String description = String.valueOf(mItemDescriptionEdit.getText());
         things.add(new Thing(description));
         String updatedThingsJson = mGson.toJson(things);
         defaultSharedPreferences.edit().putString("THINGS", updatedThingsJson).apply();

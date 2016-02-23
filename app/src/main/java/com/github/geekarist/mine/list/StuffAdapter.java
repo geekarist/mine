@@ -1,19 +1,32 @@
 package com.github.geekarist.mine.list;
 
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.github.geekarist.mine.R;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
+import java.util.Collections;
 import java.util.List;
 
 class StuffAdapter extends RecyclerView.Adapter<StuffViewHolder> {
-    private final List<Thing> mThings;
+    private List<Thing> mThings;
+    private SharedPreferences.OnSharedPreferenceChangeListener mChangeListener;
+    private Gson mGson;
+
+    public StuffAdapter() {
+        this(Collections.emptyList());
+    }
 
     public StuffAdapter(List<Thing> things) {
         mThings = things;
+        mGson = new Gson();
     }
 
     @Override
@@ -30,5 +43,28 @@ class StuffAdapter extends RecyclerView.Adapter<StuffViewHolder> {
     @Override
     public int getItemCount() {
         return mThings.size();
+    }
+
+    @Override
+    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+        SharedPreferences defaultSharedPreferences = PreferenceManager.getDefaultSharedPreferences(recyclerView.getContext());
+        mChangeListener = (sharedPreferences, key) -> {
+            if ("THINGS".equals(key)) {
+                String thingsJson = defaultSharedPreferences.getString("THINGS", "[]");
+                Type typeOfThingList = new TypeToken<List<Thing>>() {
+                }.getType();
+                mThings = mGson.fromJson(thingsJson, typeOfThingList);
+                notifyDataSetChanged();
+            }
+        };
+        defaultSharedPreferences.registerOnSharedPreferenceChangeListener(mChangeListener);
+    }
+
+    @Override
+    public void onDetachedFromRecyclerView(RecyclerView recyclerView) {
+        super.onDetachedFromRecyclerView(recyclerView);
+        SharedPreferences defaultSharedPreferences = PreferenceManager.getDefaultSharedPreferences(recyclerView.getContext());
+        defaultSharedPreferences.unregisterOnSharedPreferenceChangeListener(mChangeListener);
     }
 }

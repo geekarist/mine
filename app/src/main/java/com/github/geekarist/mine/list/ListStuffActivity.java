@@ -10,8 +10,6 @@ import android.view.View;
 import com.github.geekarist.mine.R;
 import com.github.geekarist.mine.add.AddStuffActivity;
 
-import java.util.Arrays;
-
 public class ListStuffActivity extends Activity {
 
     private View mAddButton;
@@ -22,10 +20,8 @@ public class ListStuffActivity extends Activity {
         setContentView(R.layout.layout_activity_list_stuff);
         RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.list_stuff_recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mRecyclerView.setAdapter(new StuffAdapter(Arrays.asList(
-                new Thing("Kindle, écran tactile 6 (15,2 cm) antireflet, Wi-Fi (Noir)"),
-                new Thing("Apple iPad Air - 16 Go - Gris Sidéral"))));
-
+        StuffAdapter adapter = new StuffAdapter();
+        mRecyclerView.setAdapter(adapter);
         mAddButton = findViewById(R.id.list_stuff_button_add);
         mAddButton.setOnClickListener(v -> ListStuffActivity.this.startActivity(new Intent(ListStuffActivity.this, AddStuffActivity.class)));
     }

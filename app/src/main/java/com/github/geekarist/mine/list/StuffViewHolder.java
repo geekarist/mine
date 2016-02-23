@@ -12,6 +12,6 @@ public class StuffViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void setDescription(String description) {
-        ((TextView) itemView.findViewById(R.id.stuff_item_description)).setText(description);
+        ((TextView) itemView.findViewById(R.id.view_stuff_item_description)).setText(description);
     }
 }
