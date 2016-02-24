@@ -37,7 +37,8 @@ class StuffAdapter extends RecyclerView.Adapter<StuffViewHolder> {
 
     @Override
     public void onBindViewHolder(StuffViewHolder holder, int position) {
-        holder.setDescription(mThings.get(position).getDescription());
+        String description = mThings.get(position).getDescription();
+        holder.setDescription(description);
     }
 
     @Override

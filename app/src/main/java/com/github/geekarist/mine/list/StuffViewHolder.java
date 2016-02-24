@@ -6,12 +6,20 @@ import android.widget.TextView;
 
 import com.github.geekarist.mine.R;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 public class StuffViewHolder extends RecyclerView.ViewHolder {
+
+    @Bind(R.id.view_stuff_item_description)
+    TextView mDescriptionText;
+
     public StuffViewHolder(View itemView) {
         super(itemView);
+        ButterKnife.bind(this, itemView);
     }
 
     public void setDescription(String description) {
-        ((TextView) itemView.findViewById(R.id.view_stuff_item_description)).setText(description);
+        mDescriptionText.setText(description);
     }
 }
