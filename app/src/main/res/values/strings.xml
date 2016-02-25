@@ -4,4 +4,8 @@
     <string name="add_stuff_save_description">Save description</string>
     <string name="add_stuff_description">Description</string>
     <string name="view_stuff_item_image_desc">Image of thing</string>
+    <string name="add_stuff_item_picture_label">Picture</string>
+    <string name="add_stuff_item_take_picture">Take a picture</string>
+    <string name="add_stuff_item_image_label">Picture</string>
+    <string name="add_stuff_item_image_content_desc">Picture</string>
 </resources>

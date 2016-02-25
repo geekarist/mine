@@ -1,14 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical"
               android:theme="@style/AppTheme">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="10dp"
+        android:labelFor="@+id/add_stuff_item_image_label"
+        android:text="@string/add_stuff_item_image_label"
+        />
+
+    <ImageView
+        android:id="@+id/add_stuff_item_image_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/add_stuff_item_image_content_desc"
+        tools:layout_height="128dp"/>
+
+    <Button
+        android:id="@+id/add_stuff_item_button_take_picture"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/add_stuff_item_take_picture"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:labelFor="@+id/add_stuff_item_description"
         android:text="@string/add_stuff_description"/>
 
@@ -16,7 +39,8 @@
         android:id="@id/add_stuff_item_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textMultiLine"/>
+        android:inputType="textMultiLine"
+        tools:text="Item description"/>
 
     <Button
         android:id="@+id/add_stuff_button_save"
