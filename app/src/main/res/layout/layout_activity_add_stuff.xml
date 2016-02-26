@@ -12,14 +12,14 @@
         android:layout_marginBottom="5dp"
         android:layout_marginTop="10dp"
         android:labelFor="@+id/add_stuff_item_image_label"
-        android:text="@string/add_stuff_item_image_label"
-        />
+        android:text="@string/add_stuff_item_image_label"/>
 
     <ImageView
         android:id="@+id/add_stuff_item_image_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="128dp"
         android:contentDescription="@string/add_stuff_item_image_content_desc"
+        android:src="@drawable/placeholder"
         tools:layout_height="128dp"/>
 
     <Button
