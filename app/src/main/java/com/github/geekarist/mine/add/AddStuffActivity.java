@@ -55,6 +55,7 @@ public class AddStuffActivity extends Activity {
         intent.setAction(Intent.ACTION_GET_CONTENT);
         intent.addCategory(Intent.CATEGORY_OPENABLE);
         startActivityForResult(intent, TAKE_PICTURE_REQUEST_CODE);
+        // TODO: take picture: http://developer.android.com/training/camera/photobasics.html
     }
 
     @OnClick(R.id.add_stuff_button_save)
