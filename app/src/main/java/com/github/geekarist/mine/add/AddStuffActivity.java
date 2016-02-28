@@ -3,12 +3,13 @@ package com.github.geekarist.mine.add;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.provider.MediaStore;
 import android.widget.EditText;
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
 import com.github.geekarist.mine.R;
 import com.github.geekarist.mine.list.Thing;
 import com.google.gson.Gson;
@@ -43,19 +44,19 @@ public class AddStuffActivity extends Activity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (TAKE_PICTURE_REQUEST_CODE == requestCode && Activity.RESULT_OK == resultCode) {
-            Glide.with(this).load(data.getData()).centerCrop().into(mItemImage);
+            // TODO: save full-size photo: http://developer.android.com/training/camera/photobasics.html#TaskPath
+            Bitmap bitmap = (Bitmap) data.getExtras().get("data");
+            mItemImage.setImageBitmap(bitmap);
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
 
     @OnClick(R.id.add_stuff_item_button_take_picture)
     public void takePicture() {
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        intent.addCategory(Intent.CATEGORY_OPENABLE);
-        startActivityForResult(intent, TAKE_PICTURE_REQUEST_CODE);
-        // TODO: take picture: http://developer.android.com/training/camera/photobasics.html
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(intent, TAKE_PICTURE_REQUEST_CODE);
+        }
     }
 
     @OnClick(R.id.add_stuff_button_save)
