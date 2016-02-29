@@ -1,4 +1,4 @@
-package com.github.geekarist.mine.list;
+package com.github.geekarist.mine;
 
 public class Thing {
     private final String mDescription;

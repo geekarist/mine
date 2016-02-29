@@ -11,7 +11,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.github.geekarist.mine.R;
-import com.github.geekarist.mine.list.Thing;
+import com.github.geekarist.mine.Thing;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 

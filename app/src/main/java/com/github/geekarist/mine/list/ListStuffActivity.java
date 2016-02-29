@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.github.geekarist.mine.R;
+import com.github.geekarist.mine.Thing;
 import com.github.geekarist.mine.add.AddStuffActivity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;

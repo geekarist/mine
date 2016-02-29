@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.github.geekarist.mine.R;
+import com.github.geekarist.mine.Thing;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
