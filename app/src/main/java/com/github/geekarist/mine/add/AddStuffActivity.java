@@ -4,19 +4,28 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.github.geekarist.mine.R;
 import com.github.geekarist.mine.Thing;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.Type;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -32,6 +41,7 @@ public class AddStuffActivity extends Activity {
     ImageView mItemImage;
 
     private Gson mGson;
+    private String mCurrentPhotoPath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +54,6 @@ public class AddStuffActivity extends Activity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (TAKE_PICTURE_REQUEST_CODE == requestCode && Activity.RESULT_OK == resultCode) {
-            // TODO: save full-size photo: http://developer.android.com/training/camera/photobasics.html#TaskPath
             Bitmap bitmap = (Bitmap) data.getExtras().get("data");
             mItemImage.setImageBitmap(bitmap);
         }
@@ -55,8 +64,27 @@ public class AddStuffActivity extends Activity {
     public void takePicture() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (intent.resolveActivity(getPackageManager()) != null) {
-            startActivityForResult(intent, TAKE_PICTURE_REQUEST_CODE);
+            File file = null;
+            try {
+                file = createImageFile();
+            } catch (IOException e) {
+                Log.e(getClass().getSimpleName(), "Error while taking picture", e);
+                Toast.makeText(this, "Error while taking picture", Toast.LENGTH_LONG).show();
+            }
+            if (file != null) {
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
+                startActivityForResult(intent, TAKE_PICTURE_REQUEST_CODE);
+            }
         }
+    }
+
+    private File createImageFile() throws IOException {
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(imageFileName, ".jpg", storageDir);
+        mCurrentPhotoPath = "file:" + image.getAbsolutePath();
+        return image;
     }
 
     @OnClick(R.id.add_stuff_button_save)
