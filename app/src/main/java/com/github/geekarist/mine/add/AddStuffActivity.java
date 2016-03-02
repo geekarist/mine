@@ -3,7 +3,6 @@ package com.github.geekarist.mine.add;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -14,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.github.geekarist.mine.R;
 import com.github.geekarist.mine.Thing;
 import com.google.gson.Gson;
@@ -54,10 +54,9 @@ public class AddStuffActivity extends Activity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (TAKE_PICTURE_REQUEST_CODE == requestCode && Activity.RESULT_OK == resultCode) {
-            Bitmap bitmap = (Bitmap) data.getExtras().get("data");
-            mItemImage.setImageBitmap(bitmap);
+            Uri imageUri = Uri.fromFile(new File(mCurrentPhotoPath));
+            Glide.with(this).load(imageUri).centerCrop().into(mItemImage);
         }
-        super.onActivityResult(requestCode, resultCode, data);
     }
 
     @OnClick(R.id.add_stuff_item_button_take_picture)
@@ -95,7 +94,7 @@ public class AddStuffActivity extends Activity {
         }.getType();
         List<Thing> things = mGson.fromJson(thingsJson, typeOfThingList);
         String description = String.valueOf(mItemDescriptionEdit.getText());
-        things.add(new Thing(description));
+        things.add(new Thing(description, mCurrentPhotoPath));
         String updatedThingsJson = mGson.toJson(things);
         defaultSharedPreferences.edit().putString("THINGS", updatedThingsJson).apply();
         finish();
