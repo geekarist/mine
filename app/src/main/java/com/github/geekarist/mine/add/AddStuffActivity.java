@@ -54,7 +54,7 @@ public class AddStuffActivity extends Activity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (TAKE_PICTURE_REQUEST_CODE == requestCode && Activity.RESULT_OK == resultCode) {
-            Uri imageUri = Uri.fromFile(new File(mCurrentPhotoPath));
+            Uri imageUri = Uri.parse(mCurrentPhotoPath);
             Glide.with(this).load(imageUri).centerCrop().into(mItemImage);
         }
     }
