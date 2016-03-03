@@ -32,10 +32,9 @@ public class StuffViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void setImage(String imagePath) {
-        if (imagePath == null) {
-            mGlide.load(R.drawable.placeholder).centerCrop().into(mImageView);
-        } else {
+        if (imagePath != null) {
             Uri uri = Uri.parse(imagePath);
+            mImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             mGlide.load(uri).centerCrop().into(mImageView);
         }
     }
