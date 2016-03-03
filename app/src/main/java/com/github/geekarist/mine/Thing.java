@@ -2,18 +2,18 @@ package com.github.geekarist.mine;
 
 public class Thing {
     private final String mDescription;
-    private final String mCurrentPhotoPath;
+    private final String mImagePath;
 
-    public Thing(String description, String currentPhotoPath) {
+    public Thing(String description, String imagePath) {
         mDescription = description;
-        mCurrentPhotoPath = currentPhotoPath;
+        mImagePath = imagePath;
     }
 
     public String getDescription() {
         return mDescription;
     }
 
-    public String getCurrentPhotoPath() {
-        return mCurrentPhotoPath;
+    public String getImagePath() {
+        return mImagePath;
     }
 }

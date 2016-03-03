@@ -13,17 +13,12 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
-import java.util.Collections;
 import java.util.List;
 
 class StuffAdapter extends RecyclerView.Adapter<StuffViewHolder> {
     private List<Thing> mThings;
     private SharedPreferences.OnSharedPreferenceChangeListener mChangeListener;
     private Gson mGson;
-
-    public StuffAdapter() {
-        this(Collections.emptyList());
-    }
 
     public StuffAdapter(List<Thing> things) {
         mThings = things;
@@ -40,6 +35,7 @@ class StuffAdapter extends RecyclerView.Adapter<StuffViewHolder> {
     public void onBindViewHolder(StuffViewHolder holder, int position) {
         String description = mThings.get(position).getDescription();
         holder.setDescription(description);
+        holder.setImage(mThings.get(position).getImagePath());
     }
 
     @Override
