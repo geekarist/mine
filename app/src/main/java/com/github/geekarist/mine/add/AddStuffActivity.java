@@ -1,6 +1,7 @@
 package com.github.geekarist.mine.add;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -33,6 +34,8 @@ import butterknife.OnClick;
 
 public class AddStuffActivity extends Activity {
 
+    private static final String EXTRA_THING = "THING";
+
     private static final int TAKE_PICTURE_REQUEST_CODE = 1;
 
     @Bind(R.id.add_stuff_item_description)
@@ -43,12 +46,26 @@ public class AddStuffActivity extends Activity {
     private Gson mGson;
     private String mCurrentPhotoPath;
 
+    public static Intent newIntent(Context context, Thing thing) {
+        Intent intent = new Intent(context, AddStuffActivity.class);
+        intent.putExtra(EXTRA_THING, thing);
+        return intent;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_activity_add_stuff);
         mGson = new Gson();
         ButterKnife.bind(this);
+        Thing thingToEdit = getIntent().getParcelableExtra(EXTRA_THING);
+        if (thingToEdit != null) {
+            mItemDescriptionEdit.setText(thingToEdit.getDescription());
+            mCurrentPhotoPath = thingToEdit.getImagePath();
+            Uri imageUri = Uri.parse(mCurrentPhotoPath);
+            mItemImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            Glide.with(this).load(imageUri).centerCrop().into(mItemImage);
+        }
     }
 
     @Override
@@ -95,6 +112,11 @@ public class AddStuffActivity extends Activity {
         }.getType();
         List<Thing> things = mGson.fromJson(thingsJson, typeOfThingList);
         String description = String.valueOf(mItemDescriptionEdit.getText());
+        Thing thingToEdit = getIntent().getParcelableExtra(EXTRA_THING);
+        if (thingToEdit != null) {
+            things.remove(thingToEdit);
+            things.add(new Thing(description, mCurrentPhotoPath));
+        }
         things.add(new Thing(description, mCurrentPhotoPath));
         String updatedThingsJson = mGson.toJson(things);
         defaultSharedPreferences.edit().putString("THINGS", updatedThingsJson).apply();

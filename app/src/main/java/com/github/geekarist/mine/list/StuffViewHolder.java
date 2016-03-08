@@ -11,6 +11,7 @@ import com.github.geekarist.mine.R;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class StuffViewHolder extends RecyclerView.ViewHolder {
 
@@ -19,9 +20,12 @@ public class StuffViewHolder extends RecyclerView.ViewHolder {
     @Bind(R.id.view_stuff_item_image)
     ImageView mImageView;
 
-    public StuffViewHolder(View itemView) {
+    private ItemSelectListener mItemSelectListener;
+
+    public StuffViewHolder(ItemSelectListener listener, View itemView) {
         super(itemView);
         ButterKnife.bind(this, itemView);
+        mItemSelectListener = listener;
     }
 
     public void setDescription(String description) {
@@ -34,5 +38,15 @@ public class StuffViewHolder extends RecyclerView.ViewHolder {
             mImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             Glide.with(itemView.getContext()).load(uri).centerCrop().into(mImageView);
         }
+    }
+
+    @OnClick(R.id.view_stuff_item_card)
+    public void onClickCard() {
+        int adapterPosition = getAdapterPosition();
+        mItemSelectListener.startChangingItem(adapterPosition);
+    }
+
+    public interface ItemSelectListener {
+        void startChangingItem(int position);
     }
 }

@@ -1,5 +1,7 @@
 package com.github.geekarist.mine.list;
 
+import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v7.widget.RecyclerView;
@@ -9,26 +11,29 @@ import android.view.ViewGroup;
 
 import com.github.geekarist.mine.R;
 import com.github.geekarist.mine.Thing;
+import com.github.geekarist.mine.add.AddStuffActivity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.List;
 
-class StuffAdapter extends RecyclerView.Adapter<StuffViewHolder> {
+class StuffAdapter extends RecyclerView.Adapter<StuffViewHolder> implements StuffViewHolder.ItemSelectListener {
+    private final Context mContext;
     private List<Thing> mThings;
     private SharedPreferences.OnSharedPreferenceChangeListener mChangeListener;
     private Gson mGson;
     private SharedPreferences mDefaultSharedPreferences;
 
-    public StuffAdapter() {
+    public StuffAdapter(Context context) {
+        mContext = context;
         mGson = new Gson();
     }
 
     @Override
     public StuffViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_view_stuff_item, parent, false);
-        return new StuffViewHolder(view);
+        return new StuffViewHolder(this, view);
     }
 
     @Override
@@ -68,5 +73,12 @@ class StuffAdapter extends RecyclerView.Adapter<StuffViewHolder> {
     public void onDetachedFromRecyclerView(RecyclerView recyclerView) {
         super.onDetachedFromRecyclerView(recyclerView);
         mDefaultSharedPreferences.unregisterOnSharedPreferenceChangeListener(mChangeListener);
+    }
+
+    @Override
+    public void startChangingItem(int position) {
+        Thing thing = mThings.get(position);
+        Intent intent = AddStuffActivity.newIntent(mContext, thing);
+        mContext.startActivity(intent);
     }
 }

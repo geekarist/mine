@@ -21,7 +21,7 @@ public class ListStuffActivity extends Activity {
         RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.list_stuff_recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        StuffAdapter adapter = new StuffAdapter();
+        StuffAdapter adapter = new StuffAdapter(this);
 
         mRecyclerView.setAdapter(adapter);
         mAddButton = findViewById(R.id.list_stuff_button_add);
