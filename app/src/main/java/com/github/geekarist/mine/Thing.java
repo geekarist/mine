@@ -5,6 +5,32 @@ import android.os.Parcelable;
 
 public class Thing implements Parcelable {
 
+    private String mDescription;
+    private String mImagePath;
+
+    public Thing(String description, String imagePath) {
+        mDescription = description;
+        mImagePath = imagePath;
+    }
+
+    public String getDescription() {
+        return mDescription;
+    }
+
+    public void setDescription(String description) {
+        mDescription = description;
+    }
+
+    public String getImagePath() {
+        return mImagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        mImagePath = imagePath;
+    }
+
+    // region Parcelable
+
     public static final Creator<Thing> CREATOR = new Creator<Thing>() {
         @Override
         public Thing createFromParcel(Parcel in) {
@@ -16,35 +42,10 @@ public class Thing implements Parcelable {
             return new Thing[size];
         }
     };
-    private String mDescription;
-    private String mImagePath;
-
-    public Thing(String description, String imagePath) {
-        mDescription = description;
-        mImagePath = imagePath;
-    }
 
     protected Thing(Parcel in) {
         mDescription = in.readString();
         mImagePath = in.readString();
-    }
-
-    public String getDescription() {
-        return mDescription;
-    }
-
-    public void setDescription(String description) {
-        mDescription = description;
-    }
-
-    // region Parcelable
-
-    public String getImagePath() {
-        return mImagePath;
-    }
-
-    public void setImagePath(String imagePath) {
-        mImagePath = imagePath;
     }
 
     @Override
