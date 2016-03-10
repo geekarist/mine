@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class Thing implements Parcelable {
+
     public static final Creator<Thing> CREATOR = new Creator<Thing>() {
         @Override
         public Thing createFromParcel(Parcel in) {
@@ -15,8 +16,8 @@ public class Thing implements Parcelable {
             return new Thing[size];
         }
     };
-    private final String mDescription;
-    private final String mImagePath;
+    private String mDescription;
+    private String mImagePath;
 
     public Thing(String description, String imagePath) {
         mDescription = description;
@@ -28,14 +29,22 @@ public class Thing implements Parcelable {
         mImagePath = in.readString();
     }
 
-    // region Parcelable
-
     public String getDescription() {
         return mDescription;
     }
 
+    public void setDescription(String description) {
+        mDescription = description;
+    }
+
+    // region Parcelable
+
     public String getImagePath() {
         return mImagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        mImagePath = imagePath;
     }
 
     @Override
@@ -53,6 +62,7 @@ public class Thing implements Parcelable {
 
     // region Object
 
+    @SuppressWarnings("SimplifiableIfStatement")
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

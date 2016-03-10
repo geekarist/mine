@@ -37,6 +37,9 @@ public class StuffViewHolder extends RecyclerView.ViewHolder {
             Uri uri = Uri.parse(imagePath);
             mImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             Glide.with(itemView.getContext()).load(uri).centerCrop().into(mImageView);
+        } else {
+            mImageView.setScaleType(ImageView.ScaleType.CENTER);
+            Glide.with(itemView.getContext()).load(R.drawable.ic_image_black_24dp).into(mImageView);
         }
     }
 

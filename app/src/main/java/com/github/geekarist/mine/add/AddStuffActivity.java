@@ -62,9 +62,14 @@ public class AddStuffActivity extends Activity {
         if (thingToEdit != null) {
             mItemDescriptionEdit.setText(thingToEdit.getDescription());
             mCurrentPhotoPath = thingToEdit.getImagePath();
-            Uri imageUri = Uri.parse(mCurrentPhotoPath);
-            mItemImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            Glide.with(this).load(imageUri).centerCrop().into(mItemImage);
+            if (mCurrentPhotoPath != null) {
+                Uri imageUri = Uri.parse(mCurrentPhotoPath);
+                mItemImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                Glide.with(this).load(imageUri).placeholder(R.drawable.ic_image_black_24dp).centerCrop().into(mItemImage);
+            } else {
+                mItemImage.setScaleType(ImageView.ScaleType.CENTER);
+                Glide.with(this).load(R.drawable.ic_image_black_24dp).into(mItemImage);
+            }
         }
     }
 
@@ -111,13 +116,16 @@ public class AddStuffActivity extends Activity {
         Type typeOfThingList = new TypeToken<List<Thing>>() {
         }.getType();
         List<Thing> things = mGson.fromJson(thingsJson, typeOfThingList);
-        String description = String.valueOf(mItemDescriptionEdit.getText());
         Thing thingToEdit = getIntent().getParcelableExtra(EXTRA_THING);
+        String description = String.valueOf(mItemDescriptionEdit.getText());
         if (thingToEdit != null) {
-            things.remove(thingToEdit);
+            int position = things.indexOf(thingToEdit);
+            thingToEdit.setDescription(description);
+            thingToEdit.setImagePath(mCurrentPhotoPath);
+            things.set(position, thingToEdit);
+        } else {
             things.add(new Thing(description, mCurrentPhotoPath));
         }
-        things.add(new Thing(description, mCurrentPhotoPath));
         String updatedThingsJson = mGson.toJson(things);
         defaultSharedPreferences.edit().putString("THINGS", updatedThingsJson).apply();
         finish();
