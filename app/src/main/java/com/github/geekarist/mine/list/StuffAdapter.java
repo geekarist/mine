@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 
 import com.github.geekarist.mine.R;
 import com.github.geekarist.mine.Thing;
-import com.github.geekarist.mine.add.AddStuffActivity;
+import com.github.geekarist.mine.edit.EditStuffActivity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -78,7 +78,7 @@ class StuffAdapter extends RecyclerView.Adapter<StuffViewHolder> implements Stuf
     @Override
     public void startChangingItem(int position) {
         Thing thing = mThings.get(position);
-        Intent intent = AddStuffActivity.newIntent(mContext, thing);
+        Intent intent = EditStuffActivity.newIntent(mContext, thing);
         mContext.startActivity(intent);
     }
 }

@@ -12,42 +12,42 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
         android:layout_marginTop="10dp"
-        android:labelFor="@+id/add_stuff_item_image_label"
-        android:text="@string/add_stuff_item_image_label"/>
+        android:labelFor="@+id/edit_stuff_item_image_view"
+        android:text="@string/edit_stuff_item_image_label"/>
 
     <ImageView
-        android:id="@+id/add_stuff_item_image_view"
+        android:id="@+id/edit_stuff_item_image_view"
         android:layout_width="match_parent"
         android:layout_height="128dp"
         android:background="@drawable/border"
-        android:contentDescription="@string/add_stuff_item_image_content_desc"
+        android:contentDescription="@string/edit_stuff_item_image_content_desc"
         android:scaleType="center"
         android:src="@drawable/ic_image_black_24dp"
         tools:layout_height="128dp"/>
 
     <Button
-        android:id="@+id/add_stuff_item_button_take_picture"
+        android:id="@+id/edit_stuff_item_button_take_picture"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/add_stuff_item_take_picture"/>
+        android:text="@string/edit_stuff_item_take_picture"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:labelFor="@+id/add_stuff_item_description"
-        android:text="@string/add_stuff_description"/>
+        android:labelFor="@+id/edit_stuff_item_description"
+        android:text="@string/edit_stuff_description"/>
 
     <EditText
-        android:id="@id/add_stuff_item_description"
+        android:id="@id/edit_stuff_item_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textMultiLine"
         tools:text="Item description"/>
 
     <Button
-        android:id="@+id/add_stuff_button_save"
+        android:id="@+id/edit_stuff_button_save"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/add_stuff_save_description"/>
+        android:text="@string/edit_stuff_save_description"/>
 </LinearLayout>

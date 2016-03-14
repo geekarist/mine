@@ -8,7 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.github.geekarist.mine.R;
-import com.github.geekarist.mine.add.AddStuffActivity;
+import com.github.geekarist.mine.edit.EditStuffActivity;
 
 public class ListStuffActivity extends Activity {
 
@@ -25,7 +25,7 @@ public class ListStuffActivity extends Activity {
 
         mRecyclerView.setAdapter(adapter);
         mAddButton = findViewById(R.id.list_stuff_button_add);
-        mAddButton.setOnClickListener(v -> ListStuffActivity.this.startActivity(new Intent(ListStuffActivity.this, AddStuffActivity.class)));
+        mAddButton.setOnClickListener(v -> ListStuffActivity.this.startActivity(new Intent(ListStuffActivity.this, EditStuffActivity.class)));
     }
 
 }

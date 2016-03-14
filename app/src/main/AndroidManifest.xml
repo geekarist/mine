@@ -20,7 +20,7 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".add.AddStuffActivity"/>
+        <activity android:name=".edit.EditStuffActivity"/>
     </application>
 
 </manifest>

@@ -1,4 +1,4 @@
-package com.github.geekarist.mine.add;
+package com.github.geekarist.mine.edit;
 
 import android.app.Activity;
 import android.content.Context;
@@ -32,22 +32,22 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class AddStuffActivity extends Activity {
+public class EditStuffActivity extends Activity {
 
     private static final String EXTRA_THING = "THING";
 
     private static final int TAKE_PICTURE_REQUEST_CODE = 1;
 
-    @Bind(R.id.add_stuff_item_description)
+    @Bind(R.id.edit_stuff_item_description)
     EditText mItemDescriptionEdit;
-    @Bind(R.id.add_stuff_item_image_view)
+    @Bind(R.id.edit_stuff_item_image_view)
     ImageView mItemImage;
 
     private Gson mGson;
     private String mCurrentPhotoPath;
 
     public static Intent newIntent(Context context, Thing thing) {
-        Intent intent = new Intent(context, AddStuffActivity.class);
+        Intent intent = new Intent(context, EditStuffActivity.class);
         intent.putExtra(EXTRA_THING, thing);
         return intent;
     }
@@ -55,7 +55,7 @@ public class AddStuffActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.layout_activity_add_stuff);
+        setContentView(R.layout.layout_activity_edit_stuff);
         mGson = new Gson();
         ButterKnife.bind(this);
         Thing thingToEdit = getIntent().getParcelableExtra(EXTRA_THING);
@@ -82,7 +82,7 @@ public class AddStuffActivity extends Activity {
         }
     }
 
-    @OnClick(R.id.add_stuff_item_button_take_picture)
+    @OnClick(R.id.edit_stuff_item_button_take_picture)
     public void takePicture() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (intent.resolveActivity(getPackageManager()) != null) {
@@ -109,7 +109,7 @@ public class AddStuffActivity extends Activity {
         return image;
     }
 
-    @OnClick(R.id.add_stuff_button_save)
+    @OnClick(R.id.edit_stuff_button_save)
     public void saveItem() {
         SharedPreferences defaultSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         String thingsJson = defaultSharedPreferences.getString("THINGS", "[]");
