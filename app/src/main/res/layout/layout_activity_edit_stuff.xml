@@ -4,8 +4,14 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical"
-              android:padding="10dp"
               android:theme="@style/AppTheme">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/my_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/color_toolbar_background"
+        android:elevation="4dp"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -13,7 +19,9 @@
         android:layout_marginBottom="5dp"
         android:layout_marginTop="10dp"
         android:labelFor="@+id/edit_stuff_item_image_view"
-        android:text="@string/edit_stuff_item_image_label"/>
+        android:text="@string/edit_stuff_item_image_label"
+        android:layout_marginLeft="@dimen/edit_stuff_input_lateral_margin"
+        android:layout_marginRight="@dimen/edit_stuff_input_lateral_margin"/>
 
     <ImageView
         android:id="@+id/edit_stuff_item_image_view"
@@ -23,31 +31,41 @@
         android:contentDescription="@string/edit_stuff_item_image_content_desc"
         android:scaleType="center"
         android:src="@drawable/ic_image_black_24dp"
-        tools:layout_height="128dp"/>
+        tools:layout_height="128dp"
+        android:layout_marginLeft="@dimen/edit_stuff_input_lateral_margin"
+        android:layout_marginRight="@dimen/edit_stuff_input_lateral_margin"/>
 
     <Button
         android:id="@+id/edit_stuff_item_button_take_picture"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/edit_stuff_item_take_picture"/>
+        android:text="@string/edit_stuff_item_take_picture"
+        android:layout_marginLeft="@dimen/edit_stuff_input_lateral_margin"
+        android:layout_marginRight="@dimen/edit_stuff_input_lateral_margin"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:labelFor="@+id/edit_stuff_item_description"
-        android:text="@string/edit_stuff_description"/>
+        android:text="@string/edit_stuff_description"
+        android:layout_marginLeft="@dimen/edit_stuff_input_lateral_margin"
+        android:layout_marginRight="@dimen/edit_stuff_input_lateral_margin"/>
 
     <EditText
         android:id="@id/edit_stuff_item_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textMultiLine"
-        tools:text="Item description"/>
+        tools:text="Item description"
+        android:layout_marginLeft="@dimen/edit_stuff_input_lateral_margin"
+        android:layout_marginRight="@dimen/edit_stuff_input_lateral_margin"/>
 
     <Button
         android:id="@+id/edit_stuff_button_save"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/edit_stuff_save_description"/>
+        android:text="@string/edit_stuff_save_description"
+        android:layout_marginLeft="@dimen/edit_stuff_input_lateral_margin"
+        android:layout_marginRight="@dimen/edit_stuff_input_lateral_margin"/>
 </LinearLayout>

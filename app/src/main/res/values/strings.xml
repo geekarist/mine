@@ -8,4 +8,5 @@
     <string name="edit_stuff_item_take_picture">Take a picture</string>
     <string name="edit_stuff_item_image_label">Picture</string>
     <string name="edit_stuff_item_image_content_desc">Picture</string>
+    <string name="menu_edit_item_delete">Delete</string>
 </resources>

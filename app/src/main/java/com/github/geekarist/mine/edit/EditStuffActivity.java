@@ -9,7 +9,11 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -32,7 +36,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class EditStuffActivity extends Activity {
+public class EditStuffActivity extends AppCompatActivity {
 
     private static final String EXTRA_THING = "THING";
 
@@ -42,6 +46,8 @@ public class EditStuffActivity extends Activity {
     EditText mItemDescriptionEdit;
     @Bind(R.id.edit_stuff_item_image_view)
     ImageView mItemImage;
+    @Bind(R.id.my_toolbar)
+    Toolbar mToolbar;
 
     private Gson mGson;
     private String mCurrentPhotoPath;
@@ -53,11 +59,19 @@ public class EditStuffActivity extends Activity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.menu_edit_item, menu);
+        return true;
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_activity_edit_stuff);
         mGson = new Gson();
         ButterKnife.bind(this);
+        setSupportActionBar(mToolbar);
         Thing thingToEdit = getIntent().getParcelableExtra(EXTRA_THING);
         if (thingToEdit != null) {
             mItemDescriptionEdit.setText(thingToEdit.getDescription());
