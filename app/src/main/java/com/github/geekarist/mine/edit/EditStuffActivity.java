@@ -14,10 +14,12 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.annimon.stream.function.Consumer;
 import com.bumptech.glide.Glide;
 import com.github.geekarist.mine.R;
 import com.github.geekarist.mine.Thing;
@@ -63,6 +65,18 @@ public class EditStuffActivity extends AppCompatActivity {
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.menu_edit_item, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (R.id.delete == item.getItemId()) {
+            modifyThings((things) -> {
+                Thing thingToRemove = getIntent().getParcelableExtra(EXTRA_THING);
+                things.remove(thingToRemove);
+            });
+        }
+        finish();
+        return false;
     }
 
     @Override
@@ -125,23 +139,29 @@ public class EditStuffActivity extends AppCompatActivity {
 
     @OnClick(R.id.edit_stuff_button_save)
     public void saveItem() {
+        modifyThings((things) -> {
+            Thing thingToEdit = getIntent().getParcelableExtra(EXTRA_THING);
+            String description = String.valueOf(mItemDescriptionEdit.getText());
+            if (thingToEdit != null) {
+                int position = things.indexOf(thingToEdit);
+                thingToEdit.setDescription(description);
+                thingToEdit.setImagePath(mCurrentPhotoPath);
+                things.set(position, thingToEdit);
+            } else {
+                things.add(new Thing(description, mCurrentPhotoPath));
+            }
+        });
+        finish();
+    }
+
+    private void modifyThings(Consumer<List<Thing>> modification) {
         SharedPreferences defaultSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         String thingsJson = defaultSharedPreferences.getString("THINGS", "[]");
         Type typeOfThingList = new TypeToken<List<Thing>>() {
         }.getType();
         List<Thing> things = mGson.fromJson(thingsJson, typeOfThingList);
-        Thing thingToEdit = getIntent().getParcelableExtra(EXTRA_THING);
-        String description = String.valueOf(mItemDescriptionEdit.getText());
-        if (thingToEdit != null) {
-            int position = things.indexOf(thingToEdit);
-            thingToEdit.setDescription(description);
-            thingToEdit.setImagePath(mCurrentPhotoPath);
-            things.set(position, thingToEdit);
-        } else {
-            things.add(new Thing(description, mCurrentPhotoPath));
-        }
+        modification.accept(things);
         String updatedThingsJson = mGson.toJson(things);
         defaultSharedPreferences.edit().putString("THINGS", updatedThingsJson).apply();
-        finish();
     }
 }
