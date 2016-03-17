@@ -109,6 +109,10 @@ public class EditStuffActivity extends AppCompatActivity {
             Uri imageUri = Uri.parse(mCurrentPhotoPath);
             mItemImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
             Glide.with(this).load(imageUri).centerCrop().into(mItemImage);
+        } else {
+            //noinspection ResultOfMethodCallIgnored
+            new File(Uri.parse(mCurrentPhotoPath).getPath()).delete();
+            mCurrentPhotoPath = null;
         }
     }
 
