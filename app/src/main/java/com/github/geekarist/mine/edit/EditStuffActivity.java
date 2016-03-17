@@ -19,6 +19,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.annimon.stream.Optional;
 import com.annimon.stream.function.Consumer;
 import com.bumptech.glide.Glide;
 import com.github.geekarist.mine.R;
@@ -86,6 +87,7 @@ public class EditStuffActivity extends AppCompatActivity {
         mGson = new Gson();
         ButterKnife.bind(this);
         setSupportActionBar(mToolbar);
+        Optional.ofNullable(getSupportActionBar()).ifPresent(bar -> bar.setDisplayHomeAsUpEnabled(true));
         Thing thingToEdit = getIntent().getParcelableExtra(EXTRA_THING);
         if (thingToEdit != null) {
             mItemDescriptionEdit.setText(thingToEdit.getDescription());
