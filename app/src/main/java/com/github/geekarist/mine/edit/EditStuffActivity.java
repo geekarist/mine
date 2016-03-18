@@ -61,6 +61,17 @@ public class EditStuffActivity extends AppCompatActivity {
         return intent;
     }
 
+    @OnClick(R.id.edit_stuff_item_image_view)
+    public void displayImage() {
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setDataAndType(Uri.parse(mCurrentPhotoPath), "image/*");
+        if (null != intent.resolveActivity(getPackageManager())) {
+            startActivity(intent);
+        } else {
+            Toast.makeText(this, "No image viewer found", Toast.LENGTH_LONG).show();
+        }
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
