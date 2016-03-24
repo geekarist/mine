@@ -38,6 +38,9 @@ import java.util.Locale;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnTextChanged;
+import icepick.Icepick;
+import icepick.State;
 
 public class EditStuffActivity extends AppCompatActivity {
 
@@ -53,7 +56,11 @@ public class EditStuffActivity extends AppCompatActivity {
     Toolbar mToolbar;
 
     private Gson mGson;
-    private String mCurrentPhotoPath;
+
+    @State
+    String mCurrentPhotoPath;
+    @State
+    String mDescription;
 
     public static Intent newIntent(Context context, Thing thing) {
         Intent intent = new Intent(context, EditStuffActivity.class);
@@ -94,6 +101,7 @@ public class EditStuffActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Icepick.restoreInstanceState(this, savedInstanceState);
         setContentView(R.layout.layout_activity_edit_stuff);
         mGson = new Gson();
         ButterKnife.bind(this);
@@ -101,8 +109,13 @@ public class EditStuffActivity extends AppCompatActivity {
         Optional.ofNullable(getSupportActionBar()).ifPresent(bar -> bar.setDisplayHomeAsUpEnabled(true));
         Thing thingToEdit = getIntent().getParcelableExtra(EXTRA_THING);
         if (thingToEdit != null) {
-            mItemDescriptionEdit.setText(thingToEdit.getDescription());
-            mCurrentPhotoPath = thingToEdit.getImagePath();
+            if (mDescription == null) {
+                mDescription = thingToEdit.getDescription();
+            }
+            mItemDescriptionEdit.setText(mDescription);
+            if (mCurrentPhotoPath == null) {
+                mCurrentPhotoPath = thingToEdit.getImagePath();
+            }
             if (mCurrentPhotoPath != null) {
                 Uri imageUri = Uri.parse(mCurrentPhotoPath);
                 mItemImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
@@ -112,6 +125,12 @@ public class EditStuffActivity extends AppCompatActivity {
                 Glide.with(this).load(R.drawable.ic_image_black_24dp).into(mItemImage);
             }
         }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Icepick.saveInstanceState(this, outState);
     }
 
     @Override
@@ -154,18 +173,22 @@ public class EditStuffActivity extends AppCompatActivity {
         return image;
     }
 
+    @OnTextChanged(R.id.edit_stuff_item_description)
+    public void onItemDescriptionChange() {
+        mDescription = String.valueOf(mItemDescriptionEdit.getText());
+    }
+
     @OnClick(R.id.edit_stuff_button_save)
     public void saveItem() {
         modifyThings((things) -> {
             Thing thingToEdit = getIntent().getParcelableExtra(EXTRA_THING);
-            String description = String.valueOf(mItemDescriptionEdit.getText());
             if (thingToEdit != null) {
                 int position = things.indexOf(thingToEdit);
-                thingToEdit.setDescription(description);
+                thingToEdit.setDescription(mDescription);
                 thingToEdit.setImagePath(mCurrentPhotoPath);
                 things.set(position, thingToEdit);
             } else {
-                things.add(new Thing(description, mCurrentPhotoPath));
+                things.add(new Thing(mDescription, mCurrentPhotoPath));
             }
         });
         finish();
