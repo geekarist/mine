@@ -70,6 +70,10 @@ public class EditStuffActivity extends AppCompatActivity {
 
     @OnClick(R.id.edit_stuff_item_image_view)
     public void displayImage() {
+        if (mCurrentPhotoPath == null) {
+            Toast.makeText(this, "No picture taken for this thing", Toast.LENGTH_LONG).show();
+            return;
+        }
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setDataAndType(Uri.parse(mCurrentPhotoPath), "image/*");
         if (null != intent.resolveActivity(getPackageManager())) {
