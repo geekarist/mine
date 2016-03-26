@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:layout_margin="16dp"
-        android:src="@drawable/ic_add_black_24dp"
+        android:src="@drawable/ic_add_white_24dp"
         app:layout_anchor="@id/list_stuff_recycler_view"
         app:layout_anchorGravity="end|bottom"/>
 </android.support.design.widget.CoordinatorLayout>
