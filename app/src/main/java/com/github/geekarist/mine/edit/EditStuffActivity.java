@@ -10,7 +10,6 @@ import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -52,8 +51,6 @@ public class EditStuffActivity extends AppCompatActivity {
     EditText mItemDescriptionEdit;
     @Bind(R.id.edit_stuff_item_image_view)
     ImageView mItemImage;
-    @Bind(R.id.my_toolbar)
-    Toolbar mToolbar;
 
     private Gson mGson;
 
@@ -109,7 +106,6 @@ public class EditStuffActivity extends AppCompatActivity {
         setContentView(R.layout.layout_activity_edit_stuff);
         mGson = new Gson();
         ButterKnife.bind(this);
-        setSupportActionBar(mToolbar);
         Optional.ofNullable(getSupportActionBar()).ifPresent(bar -> bar.setDisplayHomeAsUpEnabled(true));
         Thing thingToEdit = getIntent().getParcelableExtra(EXTRA_THING);
         if (thingToEdit != null) {
